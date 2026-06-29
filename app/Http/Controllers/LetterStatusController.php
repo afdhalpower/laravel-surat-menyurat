@@ -8,6 +8,7 @@ use App\Models\LetterStatus;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LetterStatusController extends Controller
 {
@@ -36,7 +37,8 @@ class LetterStatusController extends Controller
             LetterStatus::create($request->validated());
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -53,7 +55,8 @@ class LetterStatusController extends Controller
             $status->update($request->validated());
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -69,7 +72,8 @@ class LetterStatusController extends Controller
             $status->delete();
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 }

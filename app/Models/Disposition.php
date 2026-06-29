@@ -56,9 +56,9 @@ class Disposition extends Model
         return $query
             ->with(['user', 'status', 'letter'])
             ->search($search)
-            ->when($letter, function ($query, $letter) {
+            ->when($letter, function ($query, $l) {
                 return $query
-                    ->where('letter_id', $letter->id);
+                    ->where('letter_id', $l->id);
             })
             ->latest('created_at')
             ->paginate($pageSize->value)

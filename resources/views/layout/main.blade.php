@@ -1,16 +1,4 @@
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
 <!-- beautify ignore:start -->
 <html
     lang="id"
@@ -29,12 +17,9 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <meta name="description" content=""/>
+    <meta name="description" content="Aplikasi Surat Menyurat"/>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('logo-black.png') }}"/>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
@@ -42,16 +27,13 @@
         rel="stylesheet"
     />
 
-    <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{asset('sneat/vendor/fonts/boxicons.css')}}"/>
 
-    <!-- Core CSS -->
     <link rel="stylesheet" class="template-customizer-core-css" href="{{asset('sneat/vendor/css/core.css')}}"/>
     <link rel="stylesheet" class="template-customizer-theme-css"
           href="{{asset('sneat/vendor/css/theme-default.css')}}"/>
     <link rel="stylesheet" href="{{asset('sneat/css/demo.css')}}"/>
 
-    <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('sneat/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}"/>
     <link rel="stylesheet" href="{{asset('sneat/vendor/libs/sweetalert2/sweetalert2.min.css')}}"/>
 
@@ -70,55 +52,41 @@
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-        <!-- Menu -->
         @include('components.sidebar')
-        <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
-            <!-- Navbar -->
             @include('components.navbar')
-            <!-- / Navbar -->
 
-            <!-- Content wrapper -->
             <div class="content-wrapper">
-                <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
                     @yield('content')
                 </div>
-                <!-- / Content -->
 
-                <!-- Footer -->
                 @include('components.footer')
-                <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>
-            <!-- Content wrapper -->
         </div>
-        <!-- / Layout page -->
+        </div>
     </div>
 
-    <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<!-- / Layout wrapper -->
 
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
+
 <script src="{{ asset('sneat/vendor/libs/jquery/jquery.js')}}"></script>
 <script src="{{ asset('sneat/vendor/libs/popper/popper.js')}}"></script>
 <script src="{{ asset('sneat/vendor/js/bootstrap.js')}}"></script>
 <script src="{{ asset('sneat/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
 
 <script src="{{ asset('sneat/vendor/js/menu.js')}}"></script>
-<!-- endbuild -->
 
-<!-- Vendors JS -->
+
 <script src="{{ asset('sneat/vendor/libs/masonry/masonry.js')}}"></script>
 <script src="{{ asset('sneat/vendor/libs/sweetalert2/sweetalert2.all.min.js')}}"></script>
 
-<!-- Main JS -->
+
 <script src="{{ asset('sneat/js/main.js')}}"></script>
 <script>
     $(document).on('click', '.btn-delete', function (req) {
@@ -138,7 +106,7 @@
     });
 </script>
 
-<!-- Page JS -->
+
 @stack('script')
 
 @if(session('success'))

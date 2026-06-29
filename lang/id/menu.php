@@ -56,6 +56,7 @@ return [
         'delete_warning' => 'Aksi ini tidak dapat dibatalkan!',
         'success' => 'Berhasil',
         'fail' => 'Gagal',
+        'error' => 'Terjadi kesalahan',
         'doesnt_exists' => ":attribute tidak ada",
     ],
     'auth' => [

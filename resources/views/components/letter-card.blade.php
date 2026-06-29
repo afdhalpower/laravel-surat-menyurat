@@ -25,7 +25,7 @@
                     @if($letter->type == 'incoming')
                         <div class="dropdown-menu dropdown-menu-end"
                              aria-labelledby="dropdown-{{ $letter->type }}-{{ $letter->id }}">
-                            @if(!\Illuminate\Support\Facades\Route::is('*.show'))
+                            @if(!request()->routeIs('*.show'))
                                 <a class="dropdown-item"
                                    href="{{ route('transaction.incoming.show', $letter) }}">{{ __('menu.general.view') }}</a>
                                 <div class="dropdown-divider"></div>
@@ -46,7 +46,7 @@
                     @else
                         <div class="dropdown-menu dropdown-menu-end"
                              aria-labelledby="dropdown-{{ $letter->type }}-{{ $letter->id }}">
-                            @if(!\Illuminate\Support\Facades\Route::is('*.show'))
+                            @if(!request()->routeIs('*.show'))
                                 <a class="dropdown-item"
                                    href="{{ route('transaction.outgoing.show', $letter) }}">{{ __('menu.general.view') }}</a>
                                 <div class="dropdown-divider"></div>

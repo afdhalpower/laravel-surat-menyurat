@@ -1,16 +1,4 @@
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
 <!-- beautify ignore:start -->
 <html
     lang="en"
@@ -29,7 +17,7 @@
 
     <title>{{ __('menu.auth.login') }} | {{ config('app.name') }}</title>
 
-    <meta name="description" content=""/>
+    <meta name="description" content="Aplikasi Surat Menyurat"/>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{asset('sneat/img/favicon/favicon.ico')}}"/>
@@ -56,15 +44,11 @@
 </head>
 
 <body>
-<!-- Content -->
-
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-            <!-- Register -->
             <div class="card">
                 <div class="card-body">
-                    <!-- Logo -->
                     <div class="app-brand justify-content-center">
                         <a href="{{ route('home') }}" class="app-brand-link gap-2">
                             <img src="{{ asset('logo-black.png') }}" alt="{{ config('app.name') }}" srcset="" width="75px">
@@ -93,11 +77,8 @@
                     </form>
                 </div>
             </div>
-            <!-- /Register -->
         </div>
     </div>
 </div>
-
-<!-- / Content -->
 </body>
 </html>

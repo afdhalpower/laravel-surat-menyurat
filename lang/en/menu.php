@@ -56,6 +56,7 @@ return [
         'delete_warning' => 'You won\'t be able to revert it!',
         'success' => 'Success',
         'fail' => 'Fail',
+        'error' => 'An error occurred',
         'doesnt_exists' => ":attribute doesn't exists",
     ],
     'auth' => [

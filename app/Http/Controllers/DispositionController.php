@@ -13,6 +13,7 @@ use App\Notifications\DispositionCreated;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class DispositionController extends Controller
@@ -34,8 +35,9 @@ class DispositionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display disposition letter for printing.
      *
+     * @param Request $request
      * @param Letter $letter
      * @return View
      */
@@ -78,7 +80,8 @@ class DispositionController extends Controller
                 ->route('transaction.disposition.index', $letter)
                 ->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -112,7 +115,8 @@ class DispositionController extends Controller
             $disposition->update($request->validated());
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -129,7 +133,8 @@ class DispositionController extends Controller
             $disposition->delete();
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 }

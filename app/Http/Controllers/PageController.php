@@ -19,7 +19,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use JetBrains\PhpStorm\NoReturn;
 
 class PageController extends Controller
 {
@@ -116,7 +115,8 @@ class PageController extends Controller
             auth()->user()->update($newProfile);
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -130,7 +130,8 @@ class PageController extends Controller
             Auth::logout();
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -204,7 +205,8 @@ class PageController extends Controller
             $attachment->delete();
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 }

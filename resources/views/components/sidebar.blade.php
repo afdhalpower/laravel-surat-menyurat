@@ -14,7 +14,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Home -->
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('home') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->routeIs('home') ? 'active' : '' }}">
             <a href="{{ route('home') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="{{ __('menu.home') }}">{{ __('menu.home') }}</div>
@@ -24,19 +24,19 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">{{ __('menu.header.main_menu') }}</span>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaction.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ request()->routeIs('transaction.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div data-i18n="{{ __('menu.transaction.menu') }}">{{ __('menu.transaction.menu') }}</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaction.incoming.*') || \Illuminate\Support\Facades\Route::is('transaction.disposition.*') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('transaction.incoming.*') || request()->routeIs('transaction.disposition.*') ? 'active' : '' }}">
                     <a href="{{ route('transaction.incoming.index') }}" class="menu-link">
                         <div
                             data-i18n="{{ __('menu.transaction.incoming_letter') }}">{{ __('menu.transaction.incoming_letter') }}</div>
                     </a>
                 </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaction.outgoing.*') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('transaction.outgoing.*') ? 'active' : '' }}">
                     <a href="{{ route('transaction.outgoing.index') }}" class="menu-link">
                         <div
                             data-i18n="{{ __('menu.transaction.outgoing_letter') }}">{{ __('menu.transaction.outgoing_letter') }}</div>
@@ -44,19 +44,19 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ request()->routeIs('agenda.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-book"></i>
                 <div data-i18n="{{ __('menu.agenda.menu') }}">{{ __('menu.agenda.menu') }}</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.incoming') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('agenda.incoming') ? 'active' : '' }}">
                     <a href="{{ route('agenda.incoming') }}" class="menu-link">
                         <div
                             data-i18n="{{ __('menu.agenda.incoming_letter') }}">{{ __('menu.agenda.incoming_letter') }}</div>
                     </a>
                 </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.outgoing') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('agenda.outgoing') ? 'active' : '' }}">
                     <a href="{{ route('agenda.outgoing') }}" class="menu-link">
                         <div
                             data-i18n="{{ __('menu.agenda.outgoing_letter') }}">{{ __('menu.agenda.outgoing_letter') }}</div>
@@ -68,19 +68,19 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">{{ __('menu.header.other_menu') }}</span>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ request()->routeIs('gallery.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-images"></i>
                 <div data-i18n="{{ __('menu.gallery.menu') }}">{{ __('menu.gallery.menu') }}</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.incoming') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('gallery.incoming') ? 'active' : '' }}">
                     <a href="{{ route('gallery.incoming') }}" class="menu-link">
                         <div
                             data-i18n="{{ __('menu.gallery.incoming_letter') }}">{{ __('menu.gallery.incoming_letter') }}</div>
                     </a>
                 </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.outgoing') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('gallery.outgoing') ? 'active' : '' }}">
                     <a href="{{ route('gallery.outgoing') }}" class="menu-link">
                         <div
                             data-i18n="{{ __('menu.gallery.outgoing_letter') }}">{{ __('menu.gallery.outgoing_letter') }}</div>
@@ -89,19 +89,19 @@
             </ul>
         </li>
         @if(auth()->user()->role == 'admin')
-            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.*') ? 'active open' : '' }}">
+            <li class="menu-item {{ request()->routeIs('reference.*') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-analyse"></i>
                     <div data-i18n="{{ __('menu.reference.menu') }}">{{ __('menu.reference.menu') }}</div>
                 </a>
                 <ul class="menu-sub">
-                    <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.classification.*') ? 'active' : '' }}">
+                    <li class="menu-item {{ request()->routeIs('reference.classification.*') ? 'active' : '' }}">
                         <a href="{{ route('reference.classification.index') }}" class="menu-link">
                             <div
                                 data-i18n="{{ __('menu.reference.classification') }}">{{ __('menu.reference.classification') }}</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
+                    <li class="menu-item {{ request()->routeIs('reference.status.*') ? 'active' : '' }}">
                         <a href="{{ route('reference.status.index') }}" class="menu-link">
                             <div data-i18n="{{ __('menu.reference.status') }}">{{ __('menu.reference.status') }}</div>
                         </a>
@@ -109,13 +109,13 @@
                 </ul>
             </li>
             <!-- User Management -->
-            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
                 <a href="{{ route('user.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-user-pin"></i>
                     <div data-i18n="{{ __('menu.users') }}">{{ __('menu.users') }}</div>
                 </a>
             </li>
-            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('activity-log') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('activity-log') ? 'active' : '' }}">
                 <a href="{{ route('activity-log') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-history"></i>
                     <div data-i18n="{{ __('menu.activity_log') }}">{{ __('menu.activity_log') }}</div>

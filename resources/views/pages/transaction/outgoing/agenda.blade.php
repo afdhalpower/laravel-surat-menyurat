@@ -75,7 +75,7 @@
                     <tbody>
                     @foreach($data as $agenda)
                         <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                            <td><i class="bx bx-file fa-lg text-danger me-3"></i>
                                 <strong>{{ $agenda->agenda_number }}</strong></td>
                             <td>
                                 <a href="{{ route('transaction.outgoing.show', $agenda) }}">{{ $agenda->reference_number }}</a>

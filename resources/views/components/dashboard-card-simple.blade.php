@@ -8,7 +8,7 @@
             </div>
             @if($label != __('dashboard.disposition_letter') && !(auth()->user()->role == 'staff' && $label == __('dashboard.active_user')))
                 <div class="dropdown">
-                    <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"
+                    <button class="btn p-0" type="button" id="cardOpt-{{ \Illuminate\Support\Str::slug($label) }}" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <i class="bx bx-dots-vertical-rounded"></i>
                     </button>

@@ -115,7 +115,7 @@ class Letter extends Model
     public function scopeAgenda($query, $since, $until, $filter)
     {
         return $query
-            ->when($since && $until && $filter, function ($query, $condition) use ($since, $until, $filter) {
+            ->when($since && $until && $filter, function ($query) use ($since, $until, $filter) {
                 return $query->whereBetween(DB::raw('DATE(' . $filter . ')'), [$since, $until]);
             });
     }

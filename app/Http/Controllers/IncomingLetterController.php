@@ -11,11 +11,11 @@ use App\Models\Config;
 use App\Models\Letter;
 use App\Exports\IncomingLetterExport;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class IncomingLetterController extends Controller
@@ -151,7 +151,8 @@ class IncomingLetterController extends Controller
                 ->route('transaction.incoming.index')
                 ->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -210,7 +211,8 @@ class IncomingLetterController extends Controller
             }
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -228,7 +230,8 @@ class IncomingLetterController extends Controller
                 ->route('transaction.incoming.index')
                 ->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 }

@@ -11,7 +11,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use TheSeer\Tokenizer\Exception;
+use Illuminate\Support\Facades\Log;
+
 
 class UserController extends Controller
 {
@@ -43,7 +44,8 @@ class UserController extends Controller
             User::create($newUser);
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -64,7 +66,8 @@ class UserController extends Controller
             $user->update($newUser);
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 
@@ -81,7 +84,8 @@ class UserController extends Controller
             $user->delete();
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            return back()->with('error', __('menu.general.error'));
         }
     }
 }
