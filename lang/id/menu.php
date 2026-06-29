@@ -29,6 +29,7 @@ return [
         'classification' => 'Klasifikasi Surat',
         'status' => 'Status Surat',
     ],
+    'activity_log' => 'Log Aktivitas',
     'header' => [
         'main_menu' => 'Menu Utama',
         'other_menu' => 'Menu Lainnya',
@@ -39,6 +40,9 @@ return [
         'edit' => 'Edit',
         'delete' => 'Hapus',
         'print' => 'Cetak',
+        'export_pdf' => 'Export PDF',
+        'export_excel' => 'Export Excel',
+        'back' => 'Kembali',
         'upload' => 'Unggah',
         'download' => 'Unduh',
         'save' => 'Simpan',

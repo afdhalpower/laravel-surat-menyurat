@@ -28,7 +28,45 @@
         </form>
         <!-- /Search -->
 
+        @php
+            $unreadNotifications = auth()->user()->unreadNotifications;
+        @endphp
         <ul class="navbar-nav flex-row align-items-center ms-auto">
+            <!-- Notifications -->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown me-2">
+                <a class="nav-link dropdown-toggle hide-arrow position-relative" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <i class="bx bx-bell bx-sm"></i>
+                    @if($unreadNotifications->count() > 0)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                            {{ $unreadNotifications->count() > 9 ? '9+' : $unreadNotifications->count() }}
+                        </span>
+                    @endif
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" style="min-width: 320px;">
+                    <li>
+                        <a class="dropdown-item fw-semibold" href="#">
+                            {{ __('navbar.profile.notifications') }}
+                            @if($unreadNotifications->count() > 0)
+                                <span class="badge bg-danger ms-1">{{ $unreadNotifications->count() }}</span>
+                            @endif
+                        </a>
+                    </li>
+                    <li><div class="dropdown-divider"></div></li>
+                    @forelse($unreadNotifications->take(5) as $notification)
+                        <li>
+                            <a class="dropdown-item" href="{{ route('transaction.disposition.index', $notification->data['letter_id']) }}">
+                                <small class="text-muted d-block">{{ $notification->data['reference_number'] }} — {{ Str::limit($notification->data['content'], 50) }}</small>
+                                <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                            </a>
+                        </li>
+                    @empty
+                        <li>
+                            <span class="dropdown-item text-muted">{{ __('navbar.profile.no_notifications') }}</span>
+                        </li>
+                    @endforelse
+                </ul>
+            </li>
+            <!-- /Notifications -->
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"

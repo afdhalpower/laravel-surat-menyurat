@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\LetterType;
 use App\Enums\Config as ConfigEnum;
+use App\Traits\LogsActivity;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class Letter extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     /**
      * @var string[]
@@ -95,20 +96,20 @@ class Letter extends Model
                 ->where('reference_number', $find)
                 ->orWhere('agenda_number', $find)
                 ->orWhere('from', 'LIKE', $find . '%')
-                ->orWhere('to', 'LIKE', $find . '%');
+                ->orWhere('to', 'LIKE', $find . '%')
+                ->orWhere('description', 'LIKE', '%' . $find . '%')
+                ->orWhere('note', 'LIKE', '%' . $find . '%');
         });
     }
 
-    public function scopeRender($query, $search)
+    public function scopeRender($query, $search, $extra = [])
     {
         return $query
             ->with(['attachments', 'classification'])
             ->search($search)
             ->latest('letter_date')
             ->paginate(Config::getValueByCode(ConfigEnum::PAGE_SIZE))
-            ->appends([
-                'search' => $search,
-            ]);
+            ->appends(array_merge(['search' => $search], $extra));
     }
 
     public function scopeAgenda($query, $since, $until, $filter)
@@ -138,6 +139,11 @@ class Letter extends Model
     /**
      * @return HasMany
      */
+    public function activityIdentifier(): string
+    {
+        return $this->reference_number ?: "#{$this->id}";
+    }
+
     public function dispositions(): HasMany
     {
         return $this->hasMany(Disposition::class, 'letter_id', 'id');

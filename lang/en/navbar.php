@@ -5,6 +5,7 @@ return [
         'profile' => 'Profile',
         'settings' => 'Settings',
         'notifications' => 'Notifications',
+        'no_notifications' => 'No notifications',
         'logout' => 'Logout',
         'deactivate_account' => 'Deactivate Account',
         'deactivate_confirm_message' => 'Are you sure you want to deactivate your account?',

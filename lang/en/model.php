@@ -50,6 +50,7 @@ return [
         'reset_password' => 'Reset Password to Default?',
     ],
     'general' => [
+        'description' => 'Description',
         'created_at' => 'Created At',
         'updated_at' => 'Updated At',
         'deleted_at' => 'Deleted At',

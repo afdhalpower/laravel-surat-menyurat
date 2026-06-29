@@ -16,4 +16,10 @@ return [
     'today_graphic' => 'Grafik Transaksi Surat',
     'today' => 'Hari Ini',
     'letter_transaction' => 'Transaksi Surat',
+    'this_month' => 'Bulan Ini',
+    'month_graphic' => 'Grafik Bulanan Surat',
+    'undisposed' => 'Belum Disposisi',
+    'month_incoming' => 'Surat Masuk Bulan Ini',
+    'month_outgoing' => 'Surat Keluar Bulan Ini',
+    'month_disposition' => 'Disposisi Bulan Ini',
 ];

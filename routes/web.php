@@ -35,11 +35,19 @@ Route::middleware(['auth'])->group(function () {
         ->name('settings.update')
         ->middleware(['role:admin']);
 
+    Route::get('activity-log', [\App\Http\Controllers\PageController::class, 'activityLog'])
+        ->name('activity-log')
+        ->middleware(['role:admin']);
+
     Route::delete('attachment', [\App\Http\Controllers\PageController::class, 'removeAttachment'])
         ->name('attachment.destroy');
 
     Route::prefix('transaction')->as('transaction.')->group(function () {
+        Route::get('incoming/pdf', [\App\Http\Controllers\IncomingLetterController::class, 'exportPdf'])->name('incoming.pdf');
+        Route::get('incoming/excel', [\App\Http\Controllers\IncomingLetterController::class, 'exportExcel'])->name('incoming.excel');
         Route::resource('incoming', \App\Http\Controllers\IncomingLetterController::class);
+        Route::get('outgoing/pdf', [\App\Http\Controllers\OutgoingLetterController::class, 'exportPdf'])->name('outgoing.pdf');
+        Route::get('outgoing/excel', [\App\Http\Controllers\OutgoingLetterController::class, 'exportExcel'])->name('outgoing.excel');
         Route::resource('outgoing', \App\Http\Controllers\OutgoingLetterController::class);
         Route::resource('{letter}/disposition', \App\Http\Controllers\DispositionController::class)->except(['show']);
     });
@@ -47,8 +55,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('agenda')->as('agenda.')->group(function () {
         Route::get('incoming', [\App\Http\Controllers\IncomingLetterController::class, 'agenda'])->name('incoming');
         Route::get('incoming/print', [\App\Http\Controllers\IncomingLetterController::class, 'print'])->name('incoming.print');
+        Route::get('incoming/pdf', [\App\Http\Controllers\IncomingLetterController::class, 'exportPdf'])->name('incoming.pdf');
+        Route::get('incoming/excel', [\App\Http\Controllers\IncomingLetterController::class, 'exportExcel'])->name('incoming.excel');
         Route::get('outgoing', [\App\Http\Controllers\OutgoingLetterController::class, 'agenda'])->name('outgoing');
         Route::get('outgoing/print', [\App\Http\Controllers\OutgoingLetterController::class, 'print'])->name('outgoing.print');
+        Route::get('outgoing/pdf', [\App\Http\Controllers\OutgoingLetterController::class, 'exportPdf'])->name('outgoing.pdf');
+        Route::get('outgoing/excel', [\App\Http\Controllers\OutgoingLetterController::class, 'exportExcel'])->name('outgoing.excel');
     });
 
     Route::prefix('gallery')->as('gallery.')->group(function () {

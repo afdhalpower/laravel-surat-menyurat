@@ -115,6 +115,12 @@
                     <div data-i18n="{{ __('menu.users') }}">{{ __('menu.users') }}</div>
                 </a>
             </li>
+            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('activity-log') ? 'active' : '' }}">
+                <a href="{{ route('activity-log') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-history"></i>
+                    <div data-i18n="{{ __('menu.activity_log') }}">{{ __('menu.activity_log') }}</div>
+                </a>
+            </li>
         @endif
     </ul>
 </aside>

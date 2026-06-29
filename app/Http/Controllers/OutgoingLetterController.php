@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\LetterType;
 use App\Http\Requests\StoreLetterRequest;
 use App\Http\Requests\UpdateLetterRequest;
+use App\Exports\OutgoingLetterExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Attachment;
 use App\Models\Classification;
 use App\Models\Config;
@@ -13,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OutgoingLetterController extends Controller
 {
@@ -25,8 +28,15 @@ class OutgoingLetterController extends Controller
     public function index(Request $request): View
     {
         return view('pages.transaction.outgoing.index', [
-            'data' => Letter::outgoing()->render($request->search),
+            'data' => Letter::outgoing()->agenda($request->since, $request->until, $request->filter)->render($request->search, [
+                'since' => $request->since,
+                'until' => $request->until,
+                'filter' => $request->filter,
+            ]),
             'search' => $request->search,
+            'since' => $request->since,
+            'until' => $request->until,
+            'filter' => $request->filter,
         ]);
     }
 
@@ -39,7 +49,11 @@ class OutgoingLetterController extends Controller
     public function agenda(Request $request): View
     {
         return view('pages.transaction.outgoing.agenda', [
-            'data' => Letter::outgoing()->agenda($request->since, $request->until, $request->filter)->render($request->search),
+            'data' => Letter::outgoing()->agenda($request->since, $request->until, $request->filter)->render($request->search, [
+                'since' => $request->since,
+                'until' => $request->until,
+                'filter' => $request->filter,
+            ]),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
@@ -66,6 +80,28 @@ class OutgoingLetterController extends Controller
             'config' => Config::pluck('value','code')->toArray(),
             'title' => $title,
         ]);
+    }
+
+    public function exportPdf(Request $request)
+    {
+        $agenda = __('menu.agenda.menu');
+        $letter = __('menu.agenda.outgoing_letter');
+        $title = App::getLocale() == 'id' ? "$agenda $letter" : "$letter $agenda";
+        $since = $request->since;
+        $until = $request->until;
+        $filter = $request->filter;
+        $data = Letter::outgoing()->agenda($since, $until, $filter)->get();
+        $config = Config::pluck('value','code')->toArray();
+        $pdf = Pdf::loadView('pages.transaction.outgoing.print', compact('data', 'config', 'title', 'since', 'until', 'filter'));
+        return $pdf->download('agenda-surat-keluar.pdf');
+    }
+
+    public function exportExcel(Request $request)
+    {
+        return Excel::download(
+            new OutgoingLetterExport($request->since, $request->until, $request->filter),
+            'agenda-surat-keluar.xlsx'
+        );
     }
 
     /**

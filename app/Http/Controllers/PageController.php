@@ -6,6 +6,7 @@ use App\Enums\LetterType;
 use App\Helpers\GeneralHelper;
 use App\Http\Requests\UpdateConfigRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\ActivityLog;
 use App\Models\Attachment;
 use App\Models\Config;
 use App\Models\Disposition;
@@ -38,6 +39,25 @@ class PageController extends Controller
         $yesterdayDispositionLetter = Disposition::yesterday()->count();
         $yesterdayLetterTransaction = $yesterdayIncomingLetter + $yesterdayOutgoingLetter + $yesterdayDispositionLetter;
 
+        $monthlyIncomingData = Letter::incoming()
+            ->whereYear('created_at', now()->year)
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
+        $monthlyOutgoingData = Letter::outgoing()
+            ->whereYear('created_at', now()->year)
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
+        $monthlyIncoming = [];
+        $monthlyOutgoing = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyIncoming[] = $monthlyIncomingData->get($i, 0);
+            $monthlyOutgoing[] = $monthlyOutgoingData->get($i, 0);
+        }
+
         return view('pages.dashboard', [
             'greeting' => GeneralHelper::greeting(),
             'currentDate' => Carbon::now()->isoFormat('dddd, D MMMM YYYY'),
@@ -50,6 +70,12 @@ class PageController extends Controller
             'percentageOutgoingLetter' => GeneralHelper::calculateChangePercentage($yesterdayOutgoingLetter, $todayOutgoingLetter),
             'percentageDispositionLetter' => GeneralHelper::calculateChangePercentage($yesterdayDispositionLetter, $todayDispositionLetter),
             'percentageLetterTransaction' => GeneralHelper::calculateChangePercentage($yesterdayLetterTransaction, $todayLetterTransaction),
+            'monthIncomingLetter' => Letter::incoming()->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count(),
+            'monthOutgoingLetter' => Letter::outgoing()->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count(),
+            'monthDispositionLetter' => Disposition::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count(),
+            'undisposedLetters' => Letter::whereDoesntHave('dispositions')->count(),
+            'monthlyIncoming' => $monthlyIncoming,
+            'monthlyOutgoing' => $monthlyOutgoing,
         ]);
     }
 
@@ -136,6 +162,19 @@ class PageController extends Controller
             DB::rollBack();
             return back()->with('error', $exception->getMessage());
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function activityLog(Request $request): View
+    {
+        return view('pages.activity-log', [
+            'data' => ActivityLog::with('user')
+                ->latest()
+                ->paginate(Config::getValueByCode(\App\Enums\Config::PAGE_SIZE)),
+        ]);
     }
 
     /**

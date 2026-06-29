@@ -7,9 +7,12 @@ use App\Http\Requests\UpdateDispositionRequest;
 use App\Models\Disposition;
 use App\Models\Letter;
 use App\Models\LetterStatus;
+use App\Models\User;
+use App\Notifications\DispositionCreated;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class DispositionController extends Controller
 {
@@ -56,7 +59,11 @@ class DispositionController extends Controller
             $newDisposition = $request->validated();
             $newDisposition['user_id'] = auth()->user()->id;
             $newDisposition['letter_id'] = $letter->id;
-            Disposition::create($newDisposition);
+            $disposition = Disposition::create($newDisposition);
+
+            $users = User::active()->get();
+            Notification::send($users, new DispositionCreated($disposition));
+
             return redirect()
                 ->route('transaction.disposition.index', $letter)
                 ->with('success', __('menu.general.success'));

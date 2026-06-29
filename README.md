@@ -137,6 +137,17 @@ Ubah `timezone` di `config/app.php` sesuai kebutuhan. Lihat daftar zona waktu di
 ## 🎥 Demo
 Tonton demo proyek ini di [YouTube](https://www.youtube.com/watch?v=dyatVEGavxo).
 
+## 🔧 Perbaikan & Fitur Baru
+
+### v1.1 — Juni 2026
+
+- **#1 Dashboard Statistik** — Grafik bulanan (ApexCharts 12 bulan, hijau=masuk, merah=keluar) + 4 kartu statistik baru (surat bulan ini masuk/keluar/disposisi, surat belum disposisi)
+- **#2 Export PDF/Excel** — Instal DomPDF & Laravel Excel, export PDF/Excel dari halaman agenda & daftar surat
+- **#3 Notifikasi Disposisi** — Notifikasi in-app via database channel, bell icon + badge di navbar
+- **#4 Log Aktivitas** — Trait `LogsActivity` untuk 4 model (Letter, Disposition, Classification, LetterStatus), halaman activity log untuk admin
+- **#5 Pencarian & Filter** — Pencarian diperluas ke deskripsi & catatan, filter tanggal di halaman index surat masuk/keluar
+- **#6 Perbaikan UI/UX** — Menu aksi dropdown dirapikan, tombol Kembali/Edit/Hapus di halaman detail, disposisi dipindah ke dropdown
+
 ## 🎨 Template
 Proyek ini pakai template admin [Sneat](https://github.com/themeselection/sneat-html-admin-template-free).
 

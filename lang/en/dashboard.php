@@ -16,4 +16,10 @@ return [
     'today_graphic' => 'Letter Transaction Chart',
     'today' => 'Today',
     'letter_transaction' => 'Letter Transaction',
+    'this_month' => 'This Month',
+    'month_graphic' => 'Monthly Letter Chart',
+    'undisposed' => 'Undisposed',
+    'month_incoming' => 'Incoming This Month',
+    'month_outgoing' => 'Outgoing This Month',
+    'month_disposition' => 'Disposition This Month',
 ];

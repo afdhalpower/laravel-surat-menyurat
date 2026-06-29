@@ -50,6 +50,7 @@ return [
         'reset_password' => 'Setel ulang Kata Sandi menjadi bawaan?',
     ],
     'general' => [
+        'description' => 'Deskripsi',
         'created_at' => 'Dibuat pada',
         'updated_at' => 'Diperbarui pada',
         'deleted_at' => 'Dihapus pada',

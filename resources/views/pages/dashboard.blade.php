@@ -7,29 +7,43 @@
 @push('script')
     <script src="{{asset('sneat/vendor/libs/apex-charts/apexcharts.js')}}"></script>
     <script>
-        const options = {
-            chart: {
-                type: 'bar'
-            },
+        const dailyOptions = {
+            chart: { type: 'bar' },
             series: [{
                 name: '{{ __('dashboard.letter_transaction') }}',
                 data: [{{ $todayIncomingLetter }},{{ $todayOutgoingLetter }},{{ $todayDispositionLetter }}]
             }],
-            stroke: {
-                curve: 'smooth',
-            },
+            stroke: { curve: 'smooth' },
             xaxis: {
                 categories: [
                     '{{ __('dashboard.incoming_letter') }}',
                     '{{ __('dashboard.outgoing_letter') }}',
                     '{{ __('dashboard.disposition_letter') }}',
                 ],
-            }
+            },
+            colors: ['#696cff'],
         }
 
-        const chart = new ApexCharts(document.querySelector("#today-graphic"), options);
+        const dailyChart = new ApexCharts(document.querySelector("#today-graphic"), dailyOptions);
+        dailyChart.render();
 
-        chart.render();
+        const monthNames = {!! json_encode(array_map(fn($m) => Carbon\Carbon::create()->month($m)->isoFormat('MMM'), range(1, 12))) !!};
+
+        const monthlyOptions = {
+            chart: { type: 'line', toolbar: { show: false } },
+            series: [
+                { name: '{{ __('dashboard.incoming_letter') }}', data: {{ json_encode($monthlyIncoming) }} },
+                { name: '{{ __('dashboard.outgoing_letter') }}', data: {{ json_encode($monthlyOutgoing) }} },
+            ],
+            stroke: { curve: 'smooth', width: 3 },
+            xaxis: { categories: monthNames },
+            colors: ['#28c76f', '#ea5455'],
+            markers: { size: 5 },
+            yaxis: { min: 0, forceNiceScale: true },
+        }
+
+        const monthlyChart = new ApexCharts(document.querySelector("#monthly-graphic"), monthlyOptions);
+        monthlyChart.render();
     </script>
 @endpush
 
@@ -127,6 +141,69 @@
                         :daily="false"
                         color="info"
                         icon="bx-user-check"
+                        :percentage="0"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mb-4 order-0">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                        <div>
+                            <div class="card-title">
+                                <h5 class="text-nowrap mb-2">{{ __('dashboard.month_graphic') }}</h5>
+                                <span class="badge bg-label-info rounded-pill">{{ __('dashboard.this_month') }}</span>
+                            </div>
+                            <h3 class="mb-0 display-5">{{ $monthIncomingLetter + $monthOutgoingLetter + $monthDispositionLetter }}</h3>
+                        </div>
+                        <div id="monthly-graphic" style="width: 100%; min-height: 250px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 order-1">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-6 mb-4">
+                    <x-dashboard-card-simple
+                        :label="__('dashboard.month_incoming')"
+                        :value="$monthIncomingLetter"
+                        :daily="false"
+                        color="success"
+                        icon="bx-envelope"
+                        :percentage="0"
+                    />
+                </div>
+                <div class="col-lg-6 col-md-12 col-6 mb-4">
+                    <x-dashboard-card-simple
+                        :label="__('dashboard.month_outgoing')"
+                        :value="$monthOutgoingLetter"
+                        :daily="false"
+                        color="danger"
+                        icon="bx-envelope"
+                        :percentage="0"
+                    />
+                </div>
+                <div class="col-lg-6 col-md-12 col-6 mb-4">
+                    <x-dashboard-card-simple
+                        :label="__('dashboard.month_disposition')"
+                        :value="$monthDispositionLetter"
+                        :daily="false"
+                        color="primary"
+                        icon="bx-envelope"
+                        :percentage="0"
+                    />
+                </div>
+                <div class="col-lg-6 col-md-12 col-6 mb-4">
+                    <x-dashboard-card-simple
+                        :label="__('dashboard.undisposed')"
+                        :value="$undisposedLetters"
+                        :daily="false"
+                        color="warning"
+                        icon="bx-error-circle"
                         :percentage="0"
                     />
                 </div>

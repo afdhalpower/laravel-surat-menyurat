@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Disposition extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'to',
@@ -43,8 +44,9 @@ class Disposition extends Model
     {
         return $query->when($search, function($query, $find) {
             return $query
-                ->orWhere('content', 'LIKE', '%' . $find . '%')
-                ->orWhere('to', 'LIKE', $find . '%');
+                ->where('content', 'LIKE', '%' . $find . '%')
+                ->orWhere('to', 'LIKE', $find . '%')
+                ->orWhere('note', 'LIKE', '%' . $find . '%');
         });
     }
 

@@ -42,6 +42,18 @@
                                         class="btn btn-primary">
                                         {{ __('menu.general.print') }}
                                     </a>
+                                    <a
+                                        href="{{ route('agenda.outgoing.pdf') . '?' . $query }}"
+                                        target="_blank"
+                                        class="btn btn-success">
+                                        {{ __('menu.general.export_pdf') }}
+                                    </a>
+                                    <a
+                                        href="{{ route('agenda.outgoing.excel') . '?' . $query }}"
+                                        target="_blank"
+                                        class="btn btn-info">
+                                        {{ __('menu.general.export_excel') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>

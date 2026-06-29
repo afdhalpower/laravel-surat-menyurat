@@ -45,4 +45,20 @@
         </div>
     </x-letter-card>
 
+    <div class="d-flex gap-2 mt-3">
+        <a href="{{ route('transaction.outgoing.index') }}" class="btn btn-secondary">
+            <i class="bx bx-arrow-back me-1"></i>{{ __('menu.general.back') }}
+        </a>
+        <a href="{{ route('transaction.outgoing.edit', $data) }}" class="btn btn-primary">
+            <i class="bx bx-edit me-1"></i>{{ __('menu.general.edit') }}
+        </a>
+        <form action="{{ route('transaction.outgoing.destroy', $data) }}" method="post" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-delete">
+                <i class="bx bx-trash me-1"></i>{{ __('menu.general.delete') }}
+            </button>
+        </form>
+    </div>
+
 @endsection

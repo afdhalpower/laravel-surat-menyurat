@@ -16,12 +16,6 @@
                     <small class="d-block text-secondary">{{ __('model.letter.letter_date') }}</small>
                     {{ $letter->formatted_letter_date }}
                 </div>
-                @if($letter->type == 'incoming')
-                    <div class="mx-3">
-                        <a href="{{ route('transaction.disposition.index', $letter) }}"
-                           class="btn btn-primary btn">{{ __('model.letter.dispose') }} <span>({{ $letter->dispositions->count() }})</span></a>
-                    </div>
-                @endif
                 <div class="dropdown d-inline-block">
                     <button class="btn p-0" type="button" id="dropdown-{{ $letter->type }}-{{ $letter->id }}"
                             data-bs-toggle="dropdown"
@@ -34,15 +28,19 @@
                             @if(!\Illuminate\Support\Facades\Route::is('*.show'))
                                 <a class="dropdown-item"
                                    href="{{ route('transaction.incoming.show', $letter) }}">{{ __('menu.general.view') }}</a>
+                                <div class="dropdown-divider"></div>
                             @endif
                             <a class="dropdown-item"
+                               href="{{ route('transaction.disposition.index', $letter) }}">
+                                {{ __('model.letter.dispose') }} ({{ $letter->dispositions->count() }})
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item"
                                href="{{ route('transaction.incoming.edit', $letter) }}">{{ __('menu.general.edit') }}</a>
-                            <form action="{{ route('transaction.incoming.destroy', $letter) }}" class="d-inline"
-                                  method="post">
+                            <form action="{{ route('transaction.incoming.destroy', $letter) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <span
-                                    class="dropdown-item cursor-pointer btn-delete">{{ __('menu.general.delete') }}</span>
+                                <span class="dropdown-item cursor-pointer btn-delete">{{ __('menu.general.delete') }}</span>
                             </form>
                         </div>
                     @else
@@ -51,15 +49,14 @@
                             @if(!\Illuminate\Support\Facades\Route::is('*.show'))
                                 <a class="dropdown-item"
                                    href="{{ route('transaction.outgoing.show', $letter) }}">{{ __('menu.general.view') }}</a>
+                                <div class="dropdown-divider"></div>
                             @endif
                             <a class="dropdown-item"
                                href="{{ route('transaction.outgoing.edit', $letter) }}">{{ __('menu.general.edit') }}</a>
-                            <form action="{{ route('transaction.outgoing.destroy', $letter) }}" class="d-inline"
-                                  method="post">
+                            <form action="{{ route('transaction.outgoing.destroy', $letter) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <span
-                                    class="dropdown-item cursor-pointer btn-delete">{{ __('menu.general.delete') }}</span>
+                                <span class="dropdown-item cursor-pointer btn-delete">{{ __('menu.general.delete') }}</span>
                             </form>
                         </div>
                     @endif

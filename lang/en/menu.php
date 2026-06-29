@@ -29,6 +29,7 @@ return [
         'classification' => 'Classification',
         'status' => 'Status',
     ],
+    'activity_log' => 'Activity Log',
     'header' => [
         'main_menu' => 'Main',
         'other_menu' => 'Other',
@@ -39,6 +40,9 @@ return [
         'edit' => 'Edit',
         'delete' => 'Delete',
         'print' => 'Print',
+        'export_pdf' => 'Export PDF',
+        'export_excel' => 'Export Excel',
+        'back' => 'Back',
         'upload' => 'Upload',
         'download' => 'Download',
         'save' => 'Save',

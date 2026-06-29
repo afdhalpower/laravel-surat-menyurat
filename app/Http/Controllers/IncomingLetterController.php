@@ -9,11 +9,14 @@ use App\Models\Attachment;
 use App\Models\Classification;
 use App\Models\Config;
 use App\Models\Letter;
+use App\Exports\IncomingLetterExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IncomingLetterController extends Controller
 {
@@ -26,8 +29,15 @@ class IncomingLetterController extends Controller
     public function index(Request $request): View
     {
         return view('pages.transaction.incoming.index', [
-            'data' => Letter::incoming()->render($request->search),
+            'data' => Letter::incoming()->agenda($request->since, $request->until, $request->filter)->render($request->search, [
+                'since' => $request->since,
+                'until' => $request->until,
+                'filter' => $request->filter,
+            ]),
             'search' => $request->search,
+            'since' => $request->since,
+            'until' => $request->until,
+            'filter' => $request->filter,
         ]);
     }
 
@@ -40,7 +50,11 @@ class IncomingLetterController extends Controller
     public function agenda(Request $request): View
     {
         return view('pages.transaction.incoming.agenda', [
-            'data' => Letter::incoming()->agenda($request->since, $request->until, $request->filter)->render($request->search),
+            'data' => Letter::incoming()->agenda($request->since, $request->until, $request->filter)->render($request->search, [
+                'since' => $request->since,
+                'until' => $request->until,
+                'filter' => $request->filter,
+            ]),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
@@ -67,6 +81,28 @@ class IncomingLetterController extends Controller
             'config' => Config::pluck('value','code')->toArray(),
             'title' => $title,
         ]);
+    }
+
+    public function exportPdf(Request $request)
+    {
+        $agenda = __('menu.agenda.menu');
+        $letter = __('menu.agenda.incoming_letter');
+        $title = App::getLocale() == 'id' ? "$agenda $letter" : "$letter $agenda";
+        $since = $request->since;
+        $until = $request->until;
+        $filter = $request->filter;
+        $data = Letter::incoming()->agenda($since, $until, $filter)->get();
+        $config = Config::pluck('value','code')->toArray();
+        $pdf = Pdf::loadView('pages.transaction.incoming.print', compact('data', 'config', 'title', 'since', 'until', 'filter'));
+        return $pdf->download('agenda-surat-masuk.pdf');
+    }
+
+    public function exportExcel(Request $request)
+    {
+        return Excel::download(
+            new IncomingLetterExport($request->since, $request->until, $request->filter),
+            'agenda-surat-masuk.xlsx'
+        );
     }
 
     /**
