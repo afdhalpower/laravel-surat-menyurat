@@ -29,6 +29,7 @@ class UpdateConfigRequest extends FormRequest
             'institution_email' => __('model.config.institution_email'),
             'language' => __('model.config.language'),
             'pic' => __('model.config.pic'),
+            'institution_city' => __('model.config.institution_city'),
         ];
     }
 
@@ -48,6 +49,8 @@ class UpdateConfigRequest extends FormRequest
             'institution_phone' => ['required'],
             'institution_email' => ['required'],
             'pic' => ['required'],
+            'institution_logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
+            'institution_city' => ['nullable'],
         ];
     }
 }

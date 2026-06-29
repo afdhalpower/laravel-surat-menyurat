@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDispositionRequest;
 use App\Http\Requests\UpdateDispositionRequest;
+use App\Models\Config;
 use App\Models\Disposition;
 use App\Models\Letter;
 use App\Models\LetterStatus;
@@ -38,6 +39,15 @@ class DispositionController extends Controller
      * @param Letter $letter
      * @return View
      */
+    public function print(Request $request, Letter $letter): View
+    {
+        return view('pages.transaction.disposition.print', [
+            'data' => $letter->dispositions,
+            'letter' => $letter,
+            'config' => Config::pluck('value', 'code')->toArray(),
+        ]);
+    }
+
     public function create(Letter $letter): View
     {
         return view('pages.transaction.disposition.create', [

@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('outgoing/pdf', [\App\Http\Controllers\OutgoingLetterController::class, 'exportPdf'])->name('outgoing.pdf');
         Route::get('outgoing/excel', [\App\Http\Controllers\OutgoingLetterController::class, 'exportExcel'])->name('outgoing.excel');
         Route::resource('outgoing', \App\Http\Controllers\OutgoingLetterController::class);
+        Route::get('{letter}/disposition/print', [\App\Http\Controllers\DispositionController::class, 'print'])->name('disposition.print');
         Route::resource('{letter}/disposition', \App\Http\Controllers\DispositionController::class)->except(['show']);
     });
 

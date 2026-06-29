@@ -13,6 +13,8 @@ enum Config
     case INSTITUTION_EMAIL;
     case LANGUAGE;
     case PIC;
+    case INSTITUTION_LOGO;
+    case INSTITUTION_CITY;
 
     public function value(): string
     {
@@ -26,6 +28,8 @@ enum Config
             self::INSTITUTION_EMAIL => 'institution_email',
             self::LANGUAGE => 'language',
             self::PIC => 'pic',
+            self::INSTITUTION_LOGO => 'institution_logo',
+            self::INSTITUTION_CITY => 'institution_city',
         };
     }
 }

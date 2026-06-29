@@ -19,12 +19,24 @@
 
             <div class="card mb-4">
                 <div class="card-body">
-                    <form action="{{ route('settings.update') }}" method="post">
+                    <form action="{{ route('settings.update') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
                             @foreach($configs as $config)
                                 @continue($config->code == 'language')
+                                @if($config->code == 'institution_logo')
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">{{ __('model.config.institution_logo') }}</label>
+                                        @if($config->value)
+                                            <div class="mb-2">
+                                                <img src="{{ asset('storage/' . $config->value) }}" alt="Logo" style="max-height: 80px; object-fit: contain;">
+                                            </div>
+                                        @endif
+                                        <input type="file" name="institution_logo" class="form-control" accept="image/png,image/jpg,image/jpeg">
+                                    </div>
+                                    @continue
+                                @endif
                                 <div class="col-md-6">
                                     <x-input-form :name="$config->code" :value="$config->value ?? ''" :label="__('model.config.' . $config->code)"/>
                                 </div>

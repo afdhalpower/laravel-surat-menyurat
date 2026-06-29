@@ -26,6 +26,7 @@ return [
         'note' => 'Note',
         'due_date' => 'Due Date',
         'notice_me' => 'Disposition letter for :reference_number.',
+        'print_title' => 'Disposition Sheet',
     ],
     'classification' => [
         'code' => 'Code',
@@ -65,7 +66,9 @@ return [
         'institution_phone' => 'Institution Phone',
         'institution_email' => 'Institution Email',
         'language' => 'Language',
-        'pic' => 'Person in Charge'
+        'pic' => 'Person in Charge',
+        'institution_logo' => 'Institution Logo',
+        'institution_city' => 'Institution City',
     ],
 
 ];

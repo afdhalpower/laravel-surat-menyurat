@@ -46,7 +46,8 @@ Sebuah aplikasi web yang dirancang untuk mengelola surat masuk, keluar, dan disp
 - **⚙️ Pengaturan Sistem (Admin)**  
   - Konfigurasi kata sandi bawaan
   - Atur jumlah data per halaman
-  - Ubah identitas aplikasi & institusi (nama, alamat, kontak)
+  - Ubah identitas aplikasi & institusi (nama, alamat, kontak, logo, kota)
+  - **KOP Surat & Disposisi** — Cetak lembar disposisi dengan kop surat resmi (logo, nama, alamat, telepon, email)
 
 ## 🛢️ Skema Database
 ![Database Schema](docs/database_schema.png)
@@ -147,6 +148,7 @@ Tonton demo proyek ini di [YouTube](https://www.youtube.com/watch?v=dyatVEGavxo)
 - **#4 Log Aktivitas** — Trait `LogsActivity` untuk 4 model (Letter, Disposition, Classification, LetterStatus), halaman activity log untuk admin
 - **#5 Pencarian & Filter** — Pencarian diperluas ke deskripsi & catatan, filter tanggal di halaman index surat masuk/keluar
 - **#6 Perbaikan UI/UX** — Menu aksi dropdown dirapikan, tombol Kembali/Edit/Hapus di halaman detail, disposisi dipindah ke dropdown
+- **#7 KOP Disposisi** — Setting logo institusi + kota, component `<x-letterhead>` reusable untuk semua print, cetak lembar disposisi dengan kop surat lengkap (logo, nama, alamat, telp, email, PIC)
 
 ## 🎨 Template
 Proyek ini pakai template admin [Sneat](https://github.com/themeselection/sneat-html-admin-template-free).

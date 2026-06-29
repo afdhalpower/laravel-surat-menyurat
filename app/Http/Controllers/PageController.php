@@ -153,7 +153,18 @@ class PageController extends Controller
     {
         try {
             DB::beginTransaction();
-            foreach ($request->validated() as $code => $value) {
+            $data = $request->validated();
+
+            if ($request->hasFile('institution_logo')) {
+                $file = $request->file('institution_logo');
+                $filename = 'logo-' . time() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/logos', $filename);
+                $data['institution_logo'] = 'logos/' . $filename;
+            } else {
+                unset($data['institution_logo']);
+            }
+
+            foreach ($data as $code => $value) {
                 Config::where('code', $code)->update(['value' => $value]);
             }
             DB::commit();

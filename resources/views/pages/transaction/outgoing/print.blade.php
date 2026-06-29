@@ -43,9 +43,7 @@
 </head>
 <body onload="window.print()">
 
-<h1>{{ $config['institution_name'] }}</h1>
-<h4>{{ $config['institution_address'] }}</h4>
-<hr>
+<x-letterhead :config="$config" />
 
 <h2>{{ $title }}</h2>
 

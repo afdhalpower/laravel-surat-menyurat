@@ -26,6 +26,7 @@ return [
         'note' => 'Catatan',
         'due_date' => 'Tenggat Waktu',
         'notice_me' => 'Disposisi untuk surat dengan nomor :reference_number.',
+        'print_title' => 'Lembar Disposisi',
     ],
     'classification' => [
         'code' => 'Kode',
@@ -65,6 +66,8 @@ return [
         'institution_phone' => 'Nomor Telepon Institusi',
         'institution_email' => 'Surel Institusi',
         'language' => 'Bahasa',
-        'pic' => 'Penanggungjawab'
+        'pic' => 'Penanggungjawab',
+        'institution_logo' => 'Logo Institusi',
+        'institution_city' => 'Kota Institusi',
     ],
 ];

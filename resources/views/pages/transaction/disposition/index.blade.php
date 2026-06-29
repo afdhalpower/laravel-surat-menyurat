@@ -4,6 +4,7 @@
     <x-breadcrumb
         :values="[__('menu.transaction.menu'), $letter->reference_number, __('menu.transaction.disposition_letter')]">
         <a href="{{ route('transaction.disposition.create', $letter) }}" class="btn btn-primary">{{ __('menu.general.create') }}</a>
+        <a href="{{ route('transaction.disposition.print', $letter) }}" target="_blank" class="btn btn-success">{{ __('menu.general.print') }}</a>
     </x-breadcrumb>
 
     <div class="alert alert-primary alert-dismissible" role="alert">

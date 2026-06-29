@@ -52,6 +52,14 @@ class ConfigSeeder extends Seeder
                 'code' => 'pic',
                 'value' => 'M. Iqbal Effendi',
             ],
+            [
+                'code' => 'institution_logo',
+                'value' => '',
+            ],
+            [
+                'code' => 'institution_city',
+                'value' => 'Kota Anda',
+            ],
         ]);
     }
 }
